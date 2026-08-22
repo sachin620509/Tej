@@ -1,0 +1,15 @@
+import type { PostDto, PublicProfile } from '@instaframe/contracts';
+import { Hash, LoaderCircle, Search, TrendingUp, UserPlus } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { api, ApiError } from '../lib/api';
+
+type ExploreData = { posts: PostDto[]; hashtags: { name: string; count: number }[]; suggestedUsers: PublicProfile[] };
+type Suggested = PublicProfile & { reason?: string; mutualFollowers?: number };
+export function Explore() {
+  const [data, setData] = useState<ExploreData>(), [suggested, setSuggested] = useState<Suggested[]>([]), [following, setFollowing] = useState<Set<string>>(new Set()), [error, setError] = useState('');
+  useEffect(() => { Promise.all([api<ExploreData>('/api/explore'), api<{ items: Suggested[] }>('/api/recommendations/people')]).then(([explore, people]) => { setData(explore); setSuggested(people.items); }).catch(cause => setError(cause instanceof ApiError ? cause.message : 'Explore unavailable')); }, []);
+  const follow = async (person: PublicProfile) => { try { await api(`/api/profiles/${person.id}/follow`, { method: 'POST' }); setFollowing(current => new Set(current).add(person.id)); } catch (cause) { setError(cause instanceof ApiError ? cause.message : 'Could not follow this member'); } };
+  if (!data && !error) return <div className="profile-state"><LoaderCircle className="spin"/></div>;
+  return <div className="explore-page"><header><div><p className="eyebrow">CURATED FOR DISCOVERY</p><h1>Explore</h1></div><Link to="/search"><Search/> Search</Link></header>{error && <p className="form-error">{error}</p>}{data && <><section className="trend-strip"><h2><TrendingUp/> Trending now</h2><div>{data.hashtags.map(tag => <Link to={`/search?q=${encodeURIComponent(`#${tag.name}`)}`} key={tag.name}><Hash/><span><b>{tag.name}</b><small>{tag.count} posts</small></span></Link>)}</div></section><section className="suggested-strip"><h2>Suggested for you</h2><div>{suggested.map(person => <article key={person.id}><Link to={`/profile/${person.username}`}><span className="chat-avatar">{person.profilePhoto ? <img src={person.profilePhoto} alt=""/> : person.name[0]}</span><b>{person.name}{person.verified ? ' ✓' : ''}</b><small>@{person.username}</small><small>{person.mutualFollowers ? `${person.mutualFollowers} mutual` : person.reason ?? 'New on InstaFrame'}</small></Link><button disabled={following.has(person.id)} onClick={() => void follow(person)}><UserPlus/> {following.has(person.id) ? 'Following' : 'Follow'}</button></article>)}</div></section><section><div className="section-heading"><h2>Popular frames</h2><small>Diverse public posts</small></div><div className="explore-grid featured">{data.posts.map((post, index) => <Link to={`/profile/${post.author.username}`} key={post.id} className={index % 9 === 0 ? 'large' : ''}>{post.media[0]?.resourceType === 'video' ? <video src={post.media[0].secureUrl} muted controls playsInline preload="metadata"/> : <img src={post.media[0]?.secureUrl} alt={post.caption} loading="lazy"/>}<span>@{post.author.username}</span></Link>)}</div></section></>}</div>;
+}

@@ -1,0 +1,4 @@
+import type {CameraMode,QualityPreset} from './types';
+export type ModeConfig={kind:'photo'|'video'|'both';aspect:number;maxDurationSeconds:number;quality:QualityPreset;allowAudio:boolean;allowMultiClip:boolean};
+export const CAMERA_MODE_CONFIG:Record<CameraMode,ModeConfig>={photo:{kind:'photo',aspect:4/3,maxDurationSeconds:0,quality:'high',allowAudio:false,allowMultiClip:false},video:{kind:'video',aspect:9/16,maxDurationSeconds:120,quality:'medium',allowAudio:true,allowMultiClip:true},story:{kind:'both',aspect:9/16,maxDurationSeconds:60,quality:'medium',allowAudio:true,allowMultiClip:false},reel:{kind:'video',aspect:9/16,maxDurationSeconds:90,quality:'medium',allowAudio:true,allowMultiClip:true},message:{kind:'both',aspect:4/5,maxDurationSeconds:60,quality:'low',allowAudio:true,allowMultiClip:false}};
+export const qualityFor=(preset:QualityPreset,lowEnd=false)=>lowEnd?'480p':preset==='high'?'1080p':preset==='medium'?'720p':'480p';

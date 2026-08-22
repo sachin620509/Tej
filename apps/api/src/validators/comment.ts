@@ -1,0 +1,1 @@
+import { z } from 'zod'; export const commentSchema=z.object({body:z.string().trim().min(1).max(1000),parentId:z.string().optional()}).strict();export function mentionsFrom(body:string){return [...new Set([...body.matchAll(/(?:^|\s)@([a-z0-9._]{3,30})/gi)].map(match=>match[1]!.toLowerCase()))].slice(0,10);}

@@ -1,0 +1,27 @@
+{
+    "name":  "instaframe",
+    "private":  true,
+    "version":  "0.1.0",
+    "workspaces":  [
+                       "apps/*",
+                       "packages/*"
+                   ],
+    "scripts":  {
+                    "dev":  "concurrently -n api,web -c cyan,magenta \"npm run dev -w @instaframe/api\" \"npm run dev -w @instaframe/web\"",
+                    "build":  "npm run build -w @instaframe/contracts \u0026\u0026 npm run build -w @instaframe/api \u0026\u0026 npm run build -w @instaframe/web \u0026\u0026 npm run build -w @instaframe/admin",
+                    "lint":  "npm run lint --workspaces --if-present",
+                    "test":  "npm run test --workspaces --if-present",
+                    "typecheck":  "npm run build -w @instaframe/contracts \u0026\u0026 npm run typecheck --workspaces --if-present",
+                    "check":  "npm run lint \u0026\u0026 npm run typecheck \u0026\u0026 npm run test \u0026\u0026 npm run build",
+                    "release:check":  "node ops/release-check.mjs",
+                    "e2e:web":  "npm run e2e -w @instaframe/web",
+                    "mobile:apk":  "npm run build:apk -w @instaframe/mobile",
+                    "mobile:aab":  "npm run build:aab -w @instaframe/mobile"
+                },
+    "devDependencies":  {
+                            "concurrently":  "^9.2.0"
+                        },
+    "engines":  {
+                    "node":  "\u003e=20"
+                }
+}

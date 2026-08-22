@@ -1,0 +1,1 @@
+import { Construction } from 'lucide-react'; export function Placeholder({title}:{title:string}){return <div className="page placeholder"><Construction/><p className="eyebrow">InstaFrame workspace</p><h1>{title}</h1><p>This module is connected to the shared application shell and ready for its domain flow.</p></div>}

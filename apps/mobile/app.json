@@ -1,0 +1,74 @@
+{
+  "expo": {
+    "name": "InstaFrame",
+    "slug": "instaframe",
+    "scheme": "instaframe",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "plugins": [
+      "expo-router",
+      "expo-dev-client",
+      "@config-plugins/react-native-webrtc",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "enableMinifyInReleaseBuilds": true,
+            "enableShrinkResourcesInReleaseBuilds": true,
+            "enableBundleCompression": true
+          }
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow InstaFrame to use your camera for posts, reels, and consent-based InstaFrame Scan."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow InstaFrame to select media you choose to share or scan."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.instaframe.app",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "InstaFrame uses your microphone for calls and voice messages."
+      },
+      "bitcode": false
+    },
+    "android": {
+      "package": "com.instaframe.app",
+      "permissions": [
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.CAMERA",
+        "android.permission.INTERNET",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.WAKE_LOCK",
+        "android.permission.BLUETOOTH"
+      ]
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "31036832-9e2c-4eaf-8dec-c7268e99b50b"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/31036832-9e2c-4eaf-8dec-c7268e99b50b"
+    }
+  }
+}

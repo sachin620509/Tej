@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: instaframe-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile.api
+    healthCheckPath: /health/ready
+    autoDeploy: false
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+      - key: MONGO_URI
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: ADMIN_URL
+        sync: false
+      - key: ADMIN_MFA_ENCRYPTION_KEY
+        generateValue: true
+      - key: COOKIE_SECURE
+        value: true
+      - key: OPERATIONS_ALERT_WEBHOOK_URL
+        sync: false
+      - key: PUSH_PROVIDER_URL
+        sync: false
+      - key: PUSH_PROVIDER_API_KEY
+        sync: false

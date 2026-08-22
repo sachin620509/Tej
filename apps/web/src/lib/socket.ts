@@ -1,0 +1,1 @@
+import { io, type Socket } from 'socket.io-client';import { getAccessToken } from './api';let socket:Socket|undefined;export function getSocket(){if(!socket){socket=io({autoConnect:false,auth:{token:getAccessToken()}});}socket.auth={token:getAccessToken()};if(!socket.connected)socket.connect();return socket;}export function closeSocket(){socket?.disconnect();socket=undefined;}

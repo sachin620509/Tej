@@ -1,0 +1,10 @@
+export type CameraMode='photo'|'video'|'story'|'reel'|'message';
+export type PermissionState='not_requested'|'granted'|'denied'|'blocked';
+export type QualityPreset='low'|'medium'|'high';
+export type CameraFacing='front'|'back';
+export type FlashMode='off'|'on'|'auto'|'torch';
+export type MediaKind='photo'|'video';
+export type EditorOverlay={id:string;kind:'text'|'emoji'|'sticker'|'drawing';value:string;color:string;x:number;y:number;scale:number;rotation:number};
+export type MediaEdit={rotation:0|90|180|270;crop?:{x:number;y:number;width:number;height:number};filter:'none'|'warm'|'cool'|'mono'|'vivid';trim?:{startMs:number;endMs:number};speed:.5|1|1.5|2;overlays:EditorOverlay[];audio?:{uri:string;licensedByUser:true;volume:number};coverTimeMs?:number;clips?:Array<{uri:string;startMs:number;endMs:number;transition:'none'|'fade'}>};
+export type CapturedMedia={id:string;uri:string;kind:MediaKind;width?:number;height?:number;durationMs?:number;mimeType:string;mode:CameraMode;createdAt:string;edit:MediaEdit};
+export type CameraDraft={id:string;title:string;media:CapturedMedia;updatedAt:string};
