@@ -5,6 +5,8 @@ export class ApiError extends Error {
 }
 
 let accessToken: string | null = null;
+const apiBaseUrl = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '');
+const apiUrl = (path: string) => `${apiBaseUrl}${path}`;
 export const setAccessToken = (token: string | null) => { accessToken = token; };
 export const getAccessToken = () => accessToken;
 
@@ -12,7 +14,7 @@ export async function api<T>(path: string, init: RequestInit = {}, retry = true)
   const headers = new Headers(init.headers);
   if (init.body && !(init.body instanceof FormData) && !headers.has('content-type')) headers.set('content-type', 'application/json');
   if (accessToken) headers.set('authorization', `Bearer ${accessToken}`);
-  const response = await fetch(path, { ...init, headers, credentials: 'include' });
+  const response = await fetch(apiUrl(path), { ...init, headers, credentials: 'include' });
   if (response.status === 401 && retry && path !== '/api/auth/refresh') {
     const refreshed = await refreshAccessToken();
     if (refreshed) return api<T>(path, init, false);
@@ -27,7 +29,7 @@ export async function api<T>(path: string, init: RequestInit = {}, retry = true)
 
 export async function refreshAccessToken() {
   try {
-    const response = await fetch('/api/auth/refresh', { method: 'POST', credentials: 'include' });
+    const response = await fetch(apiUrl('/api/auth/refresh'), { method: 'POST', credentials: 'include' });
     const body = await response.json() as ApiResponse<{ accessToken: string }>;
     if (!response.ok || !body.success) throw new Error();
     setAccessToken(body.data.accessToken);

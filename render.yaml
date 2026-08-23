@@ -1,5 +1,19 @@
 ﻿services:
   - type: web
+    name: instaframe-web
+    runtime: static
+    buildCommand: npm ci && npm run build -w @instaframe/web
+    staticPublishPath: apps/web/dist
+    autoDeploy: true
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        value: https://instaframe-api-u86x.onrender.com
+
+  - type: web
     name: instaframe-api
     runtime: docker
     plan: free
@@ -32,7 +46,7 @@
       - key: COOKIE_SECURE
         value: "true"
       - key: CLIENT_URL
-        sync: false
+        value: https://instaframe-web.onrender.com
       - key: ADMIN_URL
         sync: false
       - key: MOBILE_APP_URL
