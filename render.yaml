@@ -2,7 +2,7 @@
   - type: web
     name: instaframe-web
     runtime: static
-    buildCommand: npm ci && npm run build -w @instaframe/web
+    buildCommand: npm ci && npm run build -w @instaframe/contracts && npm run build -w @instaframe/web
     staticPublishPath: apps/web/dist
     autoDeploy: true
     routes:
