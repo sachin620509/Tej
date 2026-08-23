@@ -1,4 +1,4 @@
-@'
+@"
 services:
   - type: web
     name: instaframe-api
@@ -16,11 +16,9 @@ services:
       - key: PORT
         value: "4000"
 
-      # Database
       - key: MONGO_URI
         sync: false
 
-      # Authentication
       - key: JWT_SECRET
         generateValue: true
 
@@ -36,18 +34,15 @@ services:
       - key: COOKIE_SECURE
         value: "true"
 
-      # Frontend
       - key: CLIENT_URL
         sync: false
 
       - key: ADMIN_URL
         sync: false
 
-      # Mobile
       - key: MOBILE_APP_URL
         sync: false
 
-      # Cloudinary
       - key: CLOUDINARY_CLOUD_NAME
         sync: false
 
@@ -57,13 +52,11 @@ services:
       - key: CLOUDINARY_API_SECRET
         sync: false
 
-      # Admin MFA
       - key: ADMIN_MFA_ENCRYPTION_KEY
         generateValue: true
 
-      # Email
       - key: EMAIL_DELIVERY_MODE
-        value: "smtp"
+        value: "console"
 
       - key: EMAIL_FROM
         value: "no-reply@instaframe.local"
@@ -83,7 +76,6 @@ services:
       - key: SMTP_PASSWORD
         sync: false
 
-      # AI
       - key: AI_PROVIDER_URL
         sync: false
 
@@ -99,7 +91,6 @@ services:
       - key: AI_RATE_LIMIT_PER_HOUR
         value: "30"
 
-      # Media
       - key: MAX_UPLOAD_MB
         value: "25"
 
@@ -145,7 +136,6 @@ services:
       - key: STORY_EXPIRY_HOURS
         value: "24"
 
-      # Media safety / cleanup
       - key: MEDIA_SAFETY_ENFORCED
         value: "true"
 
@@ -155,7 +145,9 @@ services:
       - key: MEDIA_CLEANUP_MAX_ATTEMPTS
         value: "8"
 
-      # Operations
+      - key: MEDIA_CLEANUP_ALERT_AFTER_ATTEMPTS
+        value: "3"
+
       - key: OPERATIONS_ALERT_WEBHOOK_URL
         sync: false
 
@@ -165,17 +157,12 @@ services:
       - key: OPERATIONS_JOB_INTERVAL_MS
         value: "3600000"
 
-      - key: MEDIA_CLEANUP_ALERT_AFTER_ATTEMPTS
-        value: "3"
-
-      # Push notifications
       - key: PUSH_PROVIDER_URL
         sync: false
 
       - key: PUSH_PROVIDER_API_KEY
         sync: false
 
-      # Billing
       - key: BILLING_VERIFICATION_URL
         sync: false
 
@@ -185,18 +172,15 @@ services:
       - key: BILLING_WEBHOOK_SECRET
         sync: false
 
-      # Notifications
       - key: NOTIFICATION_RETENTION_DAYS
         value: "90"
 
-      # Discovery / scanning
       - key: DISCOVERY_RATE_LIMIT_PER_HOUR
         value: "10"
 
       - key: DISCOVERY_SCAN_MAX_UPLOAD_MB
         value: "5"
 
-      # Calls
       - key: STUN_SERVER
         value: "stun:stun.l.google.com:19302"
 
@@ -209,18 +193,15 @@ services:
       - key: TURN_PASSWORD
         sync: false
 
-      # Google OAuth
       - key: GOOGLE_CLIENT_ID
         sync: false
 
       - key: GOOGLE_CLIENT_SECRET
         sync: false
 
-      # Redis
       - key: REDIS_URL
         sync: false
 
-      # Bootstrap admin
       - key: BOOTSTRAP_ADMIN_NAME
         sync: false
 
@@ -232,4 +213,4 @@ services:
 
       - key: BOOTSTRAP_ADMIN_PASSWORD
         sync: false
-'@ | Set-Content -Path .\render.yaml -Encoding utf8
+"@ | Set-Content -Path .\render.yaml -Encoding utf8
