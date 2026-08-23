@@ -33,6 +33,8 @@
         value: "true"
       - key: CLIENT_URL
         sync: false
+      - key: ADMIN_URL
+        sync: false
       - key: MOBILE_APP_URL
         sync: false
       - key: EXPO_PUBLIC_API_URL
@@ -85,9 +87,13 @@
         value: "3"
       - key: OPERATIONS_ALERT_WEBHOOK_URL
         sync: false
+      - key: OPERATIONS_ALERT_TOKEN
+        sync: false
       - key: OPERATIONS_JOB_INTERVAL_MS
         value: "3600000"
       - key: PUSH_PROVIDER_URL
+        sync: false
+      - key: PUSH_PROVIDER_API_KEY
         sync: false
       - key: SMTP_HOST
         sync: false
